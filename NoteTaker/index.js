@@ -33,6 +33,14 @@ async function run() {
       const notes = await cursor.toArray();
       res.send(notes);
     });
+    // delete a note
+    app.delete("/notes/:id", async (req, res) => {
+      const id = req.params.id;
+      console.log(id);
+      const query = { _id: ObjectId(id) };
+      const result = await noteCollection.deleteOne(query);
+      res.send(result);
+    });
   } finally {
   }
 }
