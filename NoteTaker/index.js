@@ -20,8 +20,19 @@ async function run() {
   try {
     await client.connect();
     const noteCollection = client.db("Notes-taker").collection("notes");
-
-    console.log("connected to db");
+    // add notes
+    app.post("/addNotes", async (req, res) => {
+      const data = req.body;
+      const result = await noteCollection.insertOne(data);
+      res.send(result);
+    });
+    // get notes
+    app.get("/notes", async (req, res) => {
+      const query = {};
+      const cursor = noteCollection.find(query);
+      const notes = await cursor.toArray();
+      res.send(notes);
+    });
   } finally {
   }
 }
