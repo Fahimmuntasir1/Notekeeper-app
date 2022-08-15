@@ -1,14 +1,17 @@
 import React from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import UseNotes from "../../Hooks/UseNotesHook/UseNotes";
 import Notes from "../Notes/Notes";
 
 const Home = () => {
+  const [notes, setNotes] = UseNotes();
   const handleNotes = (e) => {
+    e.preventDefault();
     const title = e.target.title.value;
     const tag = e.target.tag.value;
     const note = e.target.note.value;
-    const data = { title, tag, note };
+    let data = { title, tag, note };
     const url = `http://localhost:5000/addNotes`;
     fetch(url, {
       method: "POST",
@@ -29,11 +32,9 @@ const Home = () => {
           draggable: true,
           progress: undefined,
         });
-        if (result) {
-          e.target.value = "";
-        }
+        const remaining = notes;
+        setNotes(remaining);
       });
-    e.preventDefault();
   };
   const handleCancelBtn = () => {
     console.log("object");
@@ -58,10 +59,9 @@ const Home = () => {
           placeholder="Tag name"
           type="text"
         />
-        <input
-          required
+        <textarea
           name="note"
-          className="outline-none m-3"
+          className="outline-none m-3 resize-none"
           placeholder="Take a note..."
           type="text"
         />
