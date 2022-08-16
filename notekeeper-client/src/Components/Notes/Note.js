@@ -7,7 +7,7 @@ const Note = ({ myNote }) => {
   const { title, tag, note, _id } = myNote;
   const [notes, setNotes] = UseNotes();
   const handleDeleteNote = (id) => {
-    fetch(`http://localhost:5000/notes/${id}`, {
+    fetch(`https://young-reaches-50482.herokuapp.com/notes/${id}`, {
       method: "DELETE",
     })
       .then((res) => res.json())
@@ -34,7 +34,7 @@ const Note = ({ myNote }) => {
     const tag = e.target.tag.value;
     const note = e.target.note.value;
     const data = { title, tag, note };
-    const url = `http://localhost:5000/update${_id}`;
+    const url = `https://young-reaches-50482.herokuapp.com/update${_id}`;
     fetch(url, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
@@ -59,7 +59,7 @@ const Note = ({ myNote }) => {
 
   /*  =================== Click in the Checkbox ====================  */
   const Checkbox = (CheckID) => {
-    fetch(`http://localhost:5000/Checkbox/${CheckID}`, {
+    fetch(`https://young-reaches-50482.herokuapp.com/Checkbox/${CheckID}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",

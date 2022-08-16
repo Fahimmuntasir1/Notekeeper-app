@@ -12,7 +12,7 @@ const Home = () => {
     const tag = e.target.tag.value;
     const note = e.target.note.value;
     const data = { title, tag, note };
-    const url = `http://localhost:5000/addNotes`;
+    const url = `https://young-reaches-50482.herokuapp.com/addNotes`;
     fetch(url, {
       method: "POST",
       headers: {
