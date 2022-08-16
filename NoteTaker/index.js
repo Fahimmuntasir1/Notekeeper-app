@@ -40,6 +40,33 @@ async function run() {
       const result = await noteCollection.deleteOne(query);
       res.send(result);
     });
+    // update notes
+    app.put("/update/:id", async (req, res) => {
+      const id = req.params.id;
+      const notes = req.body;
+      const filter = { _id: ObjectId(id) };
+      const options = { upsert: true };
+      const updateDoc = {
+        $set: {
+          data: notes.updateTodo,
+        },
+      };
+      const note = await taskCollection.updateOne(filter, updateDoc, options);
+      res.send({ success: true, data: note });
+    });
+    // checkbox and complete task
+    app.patch("/Checkbox/:CheckID", async (req, res) => {
+      const data = req.params.CheckID;
+      const id = { _id: ObjectId(data) };
+      const options = { upsert: true };
+      const updateDoc = {
+        $set: {
+          Checkbox: true,
+        },
+      };
+      const result = await noteCollection.updateOne(id, updateDoc, options);
+      res.send(result);
+    });
   } finally {
   }
 }
