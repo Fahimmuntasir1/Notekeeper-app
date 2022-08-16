@@ -1,33 +1,29 @@
 import React from "react";
-import "./Pagination.css";
 
-const Pagination = ({
-  totalPosts,
-  postsPerPage,
-  setCurrentPage,
-  currentPage,
-}) => {
-  let pages = [];
+const Pagination = ({ postsPerPage, totalPosts, paginate }) => {
+  const pageNumbers = [];
 
-  for (let i = 1; (i) => Math.ceil(totalPosts / postsPerPage); i++) {
-    pages.push(i);
+  for (let i = 1; i <= Math.ceil(totalPosts / postsPerPage); i++) {
+    pageNumbers.push(i);
   }
   return (
-    <div>
-      <div className="flex flex-wrap justify-center mt-4">
-        {pages.map((page, index) => {
-          return (
-            <button
-              key={index}
-              onClick={() => setCurrentPage(page)}
-              //   className={page == currentPage ? "active" : ""}
-            >
-              {page}
-            </button>
-          );
-        })}
-      </div>
-    </div>
+    <section>
+      <nav className="my-10 w-fit mx-auto">
+        <ul className="pagination flex mx-10 border-2">
+          {pageNumbers.map((number) => (
+            <li key={number} className="page-item m-1 py-2 bg-gray-400  border">
+              <a
+                onClick={() => paginate(number)}
+                href="!#"
+                className="page-link py-4 px-3"
+              >
+                {number}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    </section>
   );
 };
 
